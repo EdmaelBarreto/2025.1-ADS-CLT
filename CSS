@@ -1,1 +1,32 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    line-height: 1.6;
+}
+
+.center {
+    text-align: center;
+}
+
+ul {
+    list-style-type: circle;
+    padding-left: 20px;
+}
+
+dd {
+    margin-left: 20px;
+    font-style: italic;
+}
+
+.social-links img {
+    width: 40px;
+    margin: 0 10px;
+    vertical-align: middle;
+}
+
+iframe {
+    display: block;
+    margin: 20px auto;
+    border: 0;
+}
 
