@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Contato</title>
+    <style>
+        fieldset {
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            padding: 15px;
+        }
+        legend {
+            font-weight: bold;
+            padding: 5px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="file"],
+        input[type="time"],
+        input[type="date"],
+        select,
+        textarea {
+            width: calc(100% - 12px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+        textarea {
+            resize: vertical;
+        }
+        button {
+            padding: 10px 15px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <fieldset>
+        <legend>Informações Pessoais</legend>
+        <div>
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+            <span id="nome-erro" class="error"></span>
+        </div>
+        <div>
+            <label for="sobrenome">Sobrenome:</label>
+            <input type="text" id="sobrenome" name="sobrenome" required>
+            <span id="sobrenome-erro" class="error"></span>
+        </div>
+        <div>
+            <label for="telefone">Telefone:</label>
+            <input type="tel" id="telefone" name="telefone" placeholder="(XX) XXXXX-XXXX" pattern="\([0-9]{2}\) [0-9]{5}-[0-9]{4}">
+            <span id="telefone-erro" class="error"></span>
+        </div>
+        <div>
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
+            <span id="email-erro" class="error"></span>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Detalhes do Serviço</legend>
+        <div>
+            <label for="mensagem">Mensagem:</label>
+            <textarea id="mensagem" name="mensagem" rows="5"></textarea>
+        </div>
+        <div>
+            <label for="lingua_servico">Língua Aplicada no Serviço:</label>
+            <select id="lingua_servico" name="lingua_servico">
+                <option value="ingles">Inglês</option>
+                <option value="espanhol">Espanhol</option>
+                <option value="frances">Francês</option>
+                <option value="portugues_br">Português (pt-br)</option>
+            </select>
+        </div>
+        <div>
+            <label for="prototipo">Upload do Protótipo (PDF, DOC, DOCX, JPEG, PNG):</label>
+            <input type="file" id="prototipo" name="prototipo" accept=".pdf,.doc,.docx,.jpeg,.jpg,.png">
+            <span id="prototipo-erro" class="error"></span>
+        </div>
+        <div>
+            <label>Linguagens Preferidas:</label>
+            <select id="linguagens_preferidas" name="linguagens_preferidas" multiple>
+                <option value="ingles">Inglês</option>
+                <option value="espanhol">Espanhol</option>
+                <option value="frances">Francês</option>
+                <option value="portugues_br">Português (pt-br)</option>
+                <option value="outra">Outra</option>
+            </select>
+        </div>
+        <div>
+            <label>Banco de Dados Recomendado:</label><br>
+            <input type="radio" id="mysql" name="banco_dados" value="mysql">
+            <label for="mysql">MySQL</label><br>
+            <input type="radio" id="postgresql" name="banco_dados" value="postgresql">
+            <label for="postgresql">PostgreSQL</label><br>
+            <input type="radio" id="mongodb" name="banco_dados" value="mongodb">
+            <label for="mongodb">MongoDB</label><br>
+            <input type="radio" id="outro_bd" name="banco_dados" value="outro">
+            <label for="outro_bd">Outro</label>
+        </div>
+        <div>
+            <label for="turno_reuniao">Turno de Preferência para Reuniões:</label>
+            <select id="turno_reuniao" name="turno_reuniao">
+                <option value="manha">Manhã</option>
+                <option value="tarde">Tarde</option>
+                <option value="noite">Noite</option>
+            </select>
+        </div>
+        <div>
+            <label for="horario_reuniao">Melhor Horário Sugerido para Reuniões:</label>
+            <input type="time" id="horario_reuniao" name="horario_reuniao">
+        </div>
+        <div>
+            <label for="previsao_entrega">Previsão de Entrega Desejada:</label>
+            <input type="date" id="previsao_entrega" name="previsao_entrega">
+        </div>
+    </fieldset>
+
+    <div>
+        <button type="reset">Limpar</button>
+        <button type="submit" onclick="validarFormulario()">Enviar</button>
+    </div>
+
+    <script>
+        function validarFormulario() {
+            let valido = true;
+
+            // Validação do nome
+            const nomeInput = document.getElementById('nome');
+            const nomeErro = document.getElementById('nome-erro');
+            if (!nomeInput.value.trim()) {
+                nomeErro.textContent = 'Por favor, digite seu nome.';
+                valido = false;
+            } else {
+                nomeErro.textContent = '';
+            }
+
+            // Validação do sobrenome
+            const sobrenomeInput = document.getElementById('sobrenome');
+            const sobrenomeErro = document.getElementById('sobrenome-erro');
+            if (!sobrenomeInput.value.trim()) {
+                sobrenomeErro.textContent = 'Por favor, digite seu sobrenome.';
+                valido = false;
+            } else {
+                sobrenomeErro.textContent = '';
+            }
+
+            // Validação do e-mail
+            const emailInput = document.getElementById('email');
+            const emailErro = document.getElementById('email-erro');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailInput.value)) {
+                emailErro.textContent = 'Por favor, digite um e-mail válido.';
+                valido = false;
+            } else {
+                emailErro.textContent = '';
+            }
+
+            // Validação do arquivo (apenas verifica se foi selecionado, a restrição de tipo é no HTML)
+            const prototipoInput = document.getElementById('prototipo');
+            const prototipoErro = document.getElementById('prototipo-erro');
+            if (prototipoInput.files.length > 0) {
+                prototipoErro.textContent = '';
+            }
+            // Podemos adicionar uma validação mais rigorosa do tipo de arquivo aqui se necessário
+
+            if (valido) {
+                alert('Formulário enviado com sucesso!'); // Simulação de envio
+                document.querySelector('form').submit(); // Descomente para realmente submeter
+            }
+        }
+    </script>
+
+</body>
+</html>
